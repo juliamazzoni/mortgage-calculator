@@ -1,15 +1,4 @@
-import styled from "styled-components"
-
-export const StyledMortgageCalculator = styled.div`
-  max-width: 80%;
-  margin: 50px auto;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 15px;
-`
+import styled from "styled-components";
 
 export const StyledCalculatorForm = styled.div`
   display: grid;
@@ -38,12 +27,15 @@ export const StyledTwoColumnField = styled.div`
   gap: 10px;
 `
 
-export const StyledTypeInput = styled.div`
+export const StyledTypeInput = styled.div<{ mortgageType: boolean }>`
+  background-color: ${({ mortgageType }) =>
+  mortgageType === true ? "hsl(61, 70%, 90%)" : "#fff"};
   display: flex;
   gap: 10px;
-  background-color: red;
   padding: 5px;
   border: 1px solid #000;
+  border-color: ${({ mortgageType }) =>
+  mortgageType === true ? "hsl(61, 70%, 52%)" : "#000"};
   border-radius: 5px;
 `
 

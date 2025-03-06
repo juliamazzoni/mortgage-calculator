@@ -1,6 +1,5 @@
 import { MortgageCalculator } from "../morgage-calculator/MortgageCalculator"
 
-
 function App() {
 
   return (
