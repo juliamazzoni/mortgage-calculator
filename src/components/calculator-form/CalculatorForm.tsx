@@ -33,6 +33,13 @@ export const CalculatorForm = ({ setResult, setMortgageType }: CalculatorFormPro
 
   const handleClearAll = () => {
     setUserData({})
+    setMortgageType('')
+    setResult({
+      repayment: 0,
+      totalPaymentOverTerm: 0,
+      interestOnly: 0,
+      totalInterestOverTerm: 0
+    })
   }
 
   return (
@@ -47,17 +54,17 @@ export const CalculatorForm = ({ setResult, setMortgageType }: CalculatorFormPro
 
           <StyledOneColumnField>
             <label >Mortgage Amount</label>
-            <input type="number" name ='mortgageAmount' onChange={handleChange}/>
+            <input type="number" name ='mortgageAmount' value={userData.mortgageAmount || ''} onChange={handleChange}/>
           </StyledOneColumnField>
 
           <StyledTwoColumnField>
             <StyledOneColumnField>
               <label htmlFor="">Mortgage Term</label>
-              <input type="number" name="mortgageTerm" onChange={handleChange}/>
+              <input type="number" name="mortgageTerm" value={userData.mortgageTerm || ''} onChange={handleChange}/>
             </StyledOneColumnField>
             <StyledOneColumnField>
               <label htmlFor="">Interest Rate</label>
-              <input type="number" step="0.01" name="interestRate" onChange={handleChange}/>
+              <input type="number" step="0.01" name="interestRate" value={userData.interestRate || ''} onChange={handleChange}/>
             </StyledOneColumnField>
           </StyledTwoColumnField>
 
@@ -65,11 +72,11 @@ export const CalculatorForm = ({ setResult, setMortgageType }: CalculatorFormPro
             <label htmlFor="">Mortgage Type</label>
 
             <StyledTypeInput mortgageType={userData.mortgageType === 'repayment'}>
-              <input type="radio" name="mortgageType" value='repayment' onChange={handleChange} /> Repayment
+              <input type="radio" name="mortgageType" value='repayment' checked={userData.mortgageType === 'repayment'} onChange={handleChange} /> Repayment
             </StyledTypeInput>
 
             <StyledTypeInput mortgageType={userData.mortgageType === 'interestOnly'}>
-              <input type="radio" name="mortgageType" value='interestOnly' onChange={handleChange} /> Interest Only
+              <input type="radio" name="mortgageType" value='interestOnly' checked={userData.mortgageType === 'interestOnly'}  onChange={handleChange} /> Interest Only
             </StyledTypeInput>
             
           </StyledOneColumnField>

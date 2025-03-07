@@ -1,39 +1,47 @@
 import { ResultsProps } from "./types"
-import { StyledResults, StyledHeader, StyledContent } from "./style"
+import { StyledHeader, StyledContent, StyledResults, StyledMonthly, StyledTotal } from "./style"
+import { transformData } from "./utils/transformData"
 
 export const Results = ({ result, mortgageType}: ResultsProps) => {
-  console.log(result)
+
+  const {repayment, totalPaymentOverTerm, interestOnly, totalInterestOverTerm} = transformData(result)
 
   return (
-    <StyledResults>
-      <StyledHeader>
-        <h3>Your Results</h3>
-        <h4>Your results are shown below based on the information you provided. To adjust the results, edit the form and click "Calculate Repayments" again.</h4>
-      </StyledHeader>
-      <StyledContent>
-        
-        {mortgageType === 'repayment' && (
-        <>
-          <h5>Your monthly payment</h5>
-          <h3>${(result.repayment)?.toFixed(2)}</h3>
-        </>
-        )}
-        
-      </StyledContent>
+      <StyledResults>
+        <StyledHeader>
+          <h3>Your Results</h3>
+          <h4>Your results are shown below based on the information you provided. To adjust the results, edit the form and click "Calculate Repayments" again.</h4>
+        </StyledHeader>
 
-      {mortgageType === 'repayment' && (
-        <>
-          <h2>repayment: {(result.repayment)?.toFixed(2)}</h2>
-          <h2>total to repay over the term: {(result.totalPaymentOverTerm)?.toFixed(2)}</h2>
-        </>
-        
-      ) }
-      {mortgageType === 'interestOnly' && (
-        <>
-          <h2>interest only: {result.interestOnly?.toFixed(2)}</h2>
-          <h2>total interest: {result.totalInterestOverTerm?.toFixed(2)}</h2>
-        </>
-      )}
-    </StyledResults>
+        <StyledContent>
+          {mortgageType === 'repayment' ? (
+          <>
+            <StyledMonthly>
+              <h5>Your monthly repayments</h5>
+              <h3>${repayment}</h3>
+            </StyledMonthly>
+            <StyledTotal>
+              <h5>Total you'll repay over the term</h5>
+              <h4>${totalPaymentOverTerm}</h4>
+            </StyledTotal>
+          </>
+          ) : 
+          
+          (<>
+              <StyledMonthly>
+                <h5>Your monthly interests</h5>
+                <h3>${interestOnly}</h3>
+              </StyledMonthly>
+              <StyledTotal>
+                <h5>Total interests you'll repay over the term</h5>
+                <h4>${totalInterestOverTerm}</h4>
+              </StyledTotal>
+            </>
+            )
+          }
+        </StyledContent> 
+      </StyledResults>
+   
+      
   )
 }
